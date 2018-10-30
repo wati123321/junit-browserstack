@@ -6,6 +6,7 @@
   "capabilities": {
     "build": "junit-browserstack",
     "name": "single_test",
+    "browserstack.selenium_version": "3.13.0",
     "browserstack.debug": true
   },
 
