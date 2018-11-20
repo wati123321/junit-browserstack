@@ -18,6 +18,20 @@
         <config.file>default</config.file>
     </properties>
 
+    <repositories>
+  <repository>
+    <id>sonatype-nexus-snapshots</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  </repository>
+</repositories>
+  
+  <pluginRepositories>
+  <pluginRepository>
+   <id>sonatype-nexus-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  </pluginRepository>
+</pluginRepositories>
+  
     <dependencies>
     <dependency>
         <groupId>junit</groupId>
@@ -50,20 +64,6 @@
         <version>1.1.1</version>
     </dependency>
     </dependencies>
-
-    <repositories>
-  <repository>
-    <id>sonatype-nexus-snapshots</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-  </repository>
-</repositories>
-  
-  <pluginRepositories>
-  <pluginRepository>
-   <id>sonatype-nexus-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-  </pluginRepository>
-</pluginRepositories>
   
     <build>
         <plugins>
