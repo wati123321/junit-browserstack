@@ -10,6 +10,9 @@
   },
 
   "environments": [{
-    "browser": "chrome"
+    "browser": "firefox",
+    "browser_version": "62.0",
+    "os": "Windows",
+    "os_version": "10"
   }]
 }
