@@ -10,10 +10,9 @@
   },
 
   "environments": [{
-    "browser": "firefox",
+    "browser": "chrome",
     "browser_version": "62.0",
     "os": "Windows",
-    "os_version": "10",
-    "browserstack.use_w3c": "true"
+    "os_version": "10"
   }]
 }
