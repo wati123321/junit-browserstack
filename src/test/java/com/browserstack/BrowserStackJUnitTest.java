@@ -1,10 +1,8 @@
 package com.browserstack;
+
 import com.browserstack.local.Local;
 
-import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,13 +37,14 @@ public class BrowserStackJUnitTest {
     public static Iterable<? extends Object> data() throws Exception {
         List<Integer> taskIDs = new ArrayList<Integer>();
 
-        if(System.getProperty("config") != null) {
+        if (System.getProperty("config") != null) {
             JSONParser parser = new JSONParser();
-            config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + System.getProperty("config")));
-            int envs = ((JSONArray)config.get("environments")).size();
+            config = (JSONObject) parser
+                    .parse(new FileReader("src/test/resources/conf/" + System.getProperty("config")));
+            int envs = ((JSONArray) config.get("environments")).size();
 
-            for(int i=0; i<envs; i++) {
-              taskIDs.add(i);
+            for (int i = 0; i < envs; i++) {
+                taskIDs.add(i);
             }
         }
 
@@ -53,50 +52,58 @@ public class BrowserStackJUnitTest {
     }
 
     @Before
+    @SuppressWarnings("unchecked")
     public void setUp() throws Exception {
         JSONArray envs = (JSONArray) config.get("environments");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        Map<String, String> envCapabilities = (Map<String, String>) envs.get(taskID);
-        Iterator it = envCapabilities.entrySet().iterator();
+        Map<String, Object> envCapabilities = (Map<String, Object>) envs.get(taskID);
+        Iterator<Map.Entry<String, Object>> it = envCapabilities.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            capabilities.setCapability(pair.getKey().toString(), pair.getValue().toString());
+            Map.Entry<String, Object> pair = (Map.Entry<String, Object>) it.next();
+            capabilities.setCapability(pair.getKey().toString(), pair.getValue());
         }
-        
-        Map<String, String> commonCapabilities = (Map<String, String>) config.get("capabilities");
+
+        Map<String, Object> commonCapabilities = (Map<String, Object>) config.get("capabilities");
         it = commonCapabilities.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            if(capabilities.getCapability(pair.getKey().toString()) == null){
-                capabilities.setCapability(pair.getKey().toString(), pair.getValue().toString());
+            Map.Entry<String, Object> pair = (Map.Entry<String, Object>) it.next();
+            Object envData = capabilities.getCapability(pair.getKey().toString());
+            Object resultData = pair.getValue();
+            if (envData != null && envData.getClass() == JSONObject.class) {
+                resultData = ((JSONObject) resultData).clone(); // do not modify actual common caps
+                ((JSONObject) resultData).putAll((JSONObject) envData);
             }
+            capabilities.setCapability(pair.getKey().toString(), resultData);
         }
 
         String username = System.getenv("BROWSERSTACK_USERNAME");
-        if(username == null) {
+        if (username == null) {
             username = (String) config.get("user");
         }
 
         String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
-        if(accessKey == null) {
+        if (accessKey == null) {
             accessKey = (String) config.get("key");
         }
 
-        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
+        if (capabilities.getCapability("browserstack.local") != null
+                && capabilities.getCapability("browserstack.local") == "true") {
             l = new Local();
             Map<String, String> options = new HashMap<String, String>();
             options.put("key", accessKey);
             l.start(options);
         }
 
-        driver = new RemoteWebDriver(new URL("http://"+username+":"+accessKey+"@"+config.get("server")+"/wd/hub"), capabilities);
+        driver = new RemoteWebDriver(
+                new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
     }
 
     @After
     public void tearDown() throws Exception {
         driver.quit();
-        if(l != null) l.stop();
+        if (l != null)
+            l.stop();
     }
 }
