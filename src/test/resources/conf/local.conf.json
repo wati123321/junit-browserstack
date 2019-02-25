@@ -7,7 +7,6 @@
     "build": "junit-browserstack",
     "name": "local_test",
     "browserstack.debug": true,
-    "browserstack.selenium_version": "3.13.0",
     "browserstack.local": true
   },
 

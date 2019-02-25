@@ -11,16 +11,12 @@
 
   "environments": [{
     "browser": "chrome",
-    "browserstack.selenium_version": "3.13.0"
   },{
     "browser": "firefox",
-    "browserstack.selenium_version": "3.13.0"
   },{
     "browser": "safari",
-    "browserstack.selenium_version": "3.13.0",
     "os": "OS X"
   },{
     "browser": "Internet Explorer",
-    "browserstack.selenium_version": "3.12.0"
   }]
 }
