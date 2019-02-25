@@ -7,7 +7,7 @@
     "bstack:options": {
       "sessionName": "parallel_test",
       "buildName": "junit-browserstack",
-      "projectName": "My Awesome App",
+      "projectName": "My Test Project",
       "debug": true,
       "seleniumVersion": "3.13.0"
     }

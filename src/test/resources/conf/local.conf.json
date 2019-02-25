@@ -10,9 +10,8 @@
       "osVersion": "7",
       "sessionName": "local_test",
       "buildName": "junit-browserstack",
-      "projectName": "My Awesome App",
+      "projectName": "My Test Project",
       "debug": true,
-      "seleniumVersion": "3.13.0"
     }
   },
   "environments": [{
