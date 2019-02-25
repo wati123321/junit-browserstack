@@ -103,7 +103,8 @@ public class BrowserStackJUnitTest {
     @After
     public void tearDown() throws Exception {
         driver.quit();
-        if (l != null)
+        if (l != null) {
             l.stop();
+        }
     }
 }
