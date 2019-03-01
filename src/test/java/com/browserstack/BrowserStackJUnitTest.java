@@ -26,7 +26,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parallelized.class)
 public class BrowserStackJUnitTest {
     public WebDriver driver;
-    private Local l;
+    private Local bsLocal;
 
     private static JSONObject config;
 
@@ -88,22 +88,36 @@ public class BrowserStackJUnitTest {
             accessKey = (String) config.get("key");
         }
 
-        if (capabilities.getCapability("browserstack.local") != null
-                && capabilities.getCapability("browserstack.local") == "true") {
-            l = new Local();
-            Map<String, String> options = new HashMap<String, String>();
-            options.put("key", accessKey);
-            l.start(options);
-        }
+        this.checkAndStartBrowserStackLocal(capabilities, accessKey);
 
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
     }
 
+    public void checkAndStartBrowserStackLocal(DesiredCapabilities capabilities, String accessKey) {
+        if (bsLocal != null) {
+            return;
+        }
+        if (capabilities.getCapability("bstack:options") != null
+                && ((JSONObject) capabilities.getCapability("bstack:options")).get("local") != null
+                && ((Boolean) ((JSONObject) capabilities.getCapability("bstack:options")).get("local")) == true) {
+            bsLocal = new Local();
+            Map<String, String> options = new HashMap<String, String>();
+            options.put("key", accessKey);
+            try {
+                bsLocal.start(options);
+            } catch (Exception e) {
+                System.out.println("Error: could not start browserstack local");
+                e.printStackTrace();
+            }
+        }
+    }
+
     @After
     public void tearDown() throws Exception {
         driver.quit();
-        if (l != null)
-            l.stop();
+        if (bsLocal != null) {
+            bsLocal.stop();
+        }
     }
 }
