@@ -72,7 +72,6 @@ public class BrowserStackJUnitTest {
             Object envData = capabilities.getCapability(pair.getKey().toString());
             Object resultData = pair.getValue();
             if (envData != null && envData.getClass() == JSONObject.class) {
-                resultData = ((JSONObject) resultData).clone(); // do not modify actual common caps
                 ((JSONObject) resultData).putAll((JSONObject) envData);
             }
             capabilities.setCapability(pair.getKey().toString(), resultData);
