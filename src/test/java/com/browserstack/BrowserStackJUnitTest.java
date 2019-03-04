@@ -93,7 +93,7 @@ public class BrowserStackJUnitTest {
                 new URL("https://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
     }
 
-    public void checkAndStartBrowserStackLocal(DesiredCapabilities capabilities, String accessKey) {
+    public void checkAndStartBrowserStackLocal (DesiredCapabilities capabilities, String accessKey) throws Exception {
         if (bsLocal != null) {
             return;
         }
@@ -103,12 +103,7 @@ public class BrowserStackJUnitTest {
             bsLocal = new Local();
             Map<String, String> options = new HashMap<String, String>();
             options.put("key", accessKey);
-            try {
-                bsLocal.start(options);
-            } catch (Exception e) {
-                System.out.println("Error: could not start browserstack local");
-                e.printStackTrace();
-            }
+            bsLocal.start(options);
         }
     }
 
