@@ -10,12 +10,13 @@
   },
 
   "environments": [{
-    "browser": "chrome"
+    "browser": "chrome",
   },{
-    "browser": "firefox"
+    "browser": "firefox",
   },{
-    "browser": "safari"
+    "browser": "safari",
+    "os": "OS X"
   },{
-    "browser": "internet explorer"
+    "browser": "Internet Explorer",
   }]
 }
