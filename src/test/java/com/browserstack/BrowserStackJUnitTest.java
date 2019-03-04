@@ -91,7 +91,7 @@ public class BrowserStackJUnitTest {
         this.checkAndStartBrowserStackLocal(capabilities, accessKey);
 
         driver = new RemoteWebDriver(
-                new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
+                new URL("https://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
     }
 
     public void checkAndStartBrowserStackLocal(DesiredCapabilities capabilities, String accessKey) {
