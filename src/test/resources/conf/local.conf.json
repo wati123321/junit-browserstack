@@ -4,12 +4,17 @@
   "key": "BROWSERSTACK_ACCESS_KEY",
 
   "capabilities": {
-    "build": "junit-browserstack",
-    "name": "local_test",
-    "browserstack.debug": true,
-    "browserstack.local": true
+    "browserstack.use_w3c": true,
+    "bstack:options": {
+      "os": "Windows",
+      "osVersion": "7",
+      "sessionName": "local_test",
+      "buildName": "junit-browserstack",
+      "projectName": "My Test Project",
+      "debug": true,
+      "local": true
+    }
   },
-
   "environments": [{
     "browser": "chrome"
   }]

@@ -34,6 +34,7 @@ public class Parallelized extends Parameterized {
     }
   }
 
+  @SuppressWarnings("rawtypes")
   public Parallelized(Class klass) throws Throwable {
     super(klass);
     setScheduler(new ThreadPoolScheduler());
