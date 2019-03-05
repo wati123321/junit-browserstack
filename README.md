@@ -1,6 +1,8 @@
 # junit-browserstack
 [JUnit](http://junit.org/junit4/) Integration with BrowserStack.
 
+Master branch contains **Selenium 3** samples, for **Selenium 4 - W3C protocol** please checkout [selenium-4](https://github.com/browserstack/junit-browserstack/tree/selenium-4) branch
+
 ![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780) 
 
 ![JUnit](http://junit.org/junit4/images/junit-logo.png)
