@@ -9,14 +9,19 @@
     "browserstack.debug": true
   },
 
-  "environments": [{
-    "browser": "chrome",
-  },{
-    "browser": "firefox",
-  },{
-    "browser": "safari",
-    "os": "OS X"
-  },{
-    "browser": "Internet Explorer",
-  }]
+  "environments": [
+    {
+      "browser": "chrome"
+    },
+    {
+      "browser": "firefox"
+    },
+    {
+      "browser": "safari",
+      "os": "OS X"
+    },
+    {
+      "browser": "Internet Explorer"
+    }
+  ]
 }
