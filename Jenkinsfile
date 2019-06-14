@@ -17,12 +17,15 @@ stages {
  
  stage('Install dependencies') {
     steps {
-     sh 'mvn compile'
+        sh 'mvn compile'
     }
  }
  stage('Test') {
      steps {
-        sh 'mvn test -P single'
+
+browserstack('19ff12d1-a1d1-439c-8513-ed57a2cb287e') {
+    sh 'mvn test -P single'
+}
      }
   }      
 }
