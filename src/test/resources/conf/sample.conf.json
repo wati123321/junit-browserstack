@@ -1,0 +1,17 @@
+{
+  "server": "hub-cloud.browserstack.com",
+  "user": "BROWSERSTACK_USERNAME",
+  "key": "BROWSERSTACK_ACCESS_KEY",
+
+  "capabilities": {
+    "build": "junit5-browserstack",
+    "name": "sampleConf",
+    "browserstack.debug": true
+  },
+
+  "environments": [{
+    "browser": "chrome",
+    "os": "Windows",
+    "os_version": "10"
+  }]
+}
