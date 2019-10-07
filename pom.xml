@@ -15,6 +15,9 @@
         <surefire.version>2.19.1</surefire.version>
         <test.file></test.file>
         <config.file>default</config.file>
+
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
 
     <repositories>
