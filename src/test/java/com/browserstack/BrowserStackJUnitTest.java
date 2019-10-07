@@ -1,64 +1,40 @@
 package com.browserstack;
 import com.browserstack.local.Local;
 
-import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
-
-@RunWith(Parallelized.class)
 public class BrowserStackJUnitTest {
     public WebDriver driver;
     private Local l;
 
     private static JSONObject config;
 
-    @Parameter(value = 0)
-    public int taskID;
-
-    @Parameters
-    public static Iterable<? extends Object> data() throws Exception {
-        List<Integer> taskIDs = new ArrayList<Integer>();
+    @BeforeEach
+    public void setUp(TestInfo testInfo) throws Exception {
 
         if(System.getProperty("config") != null) {
             JSONParser parser = new JSONParser();
             config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + System.getProperty("config")));
-            int envs = ((JSONArray)config.get("environments")).size();
-
-            for(int i=0; i<envs; i++) {
-              taskIDs.add(i);
-            }
         }
 
-        return taskIDs;
-    }
-
-    @Before
-    public void setUp() throws Exception {
         JSONArray envs = (JSONArray) config.get("environments");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        Map<String, String> envCapabilities = (Map<String, String>) envs.get(taskID);
+        Map<String, String> envCapabilities = (Map<String, String>) envs.get(0);
         Iterator it = envCapabilities.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
@@ -73,6 +49,8 @@ public class BrowserStackJUnitTest {
                 capabilities.setCapability(pair.getKey().toString(), pair.getValue().toString());
             }
         }
+
+        capabilities.setCapability("name", commonCapabilities.get("name").concat("_").concat(testInfo.getDisplayName()));
 
         String username = System.getenv("BROWSERSTACK_USERNAME");
         if(username == null) {
@@ -94,9 +72,9 @@ public class BrowserStackJUnitTest {
         driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@"+config.get("server")+"/wd/hub"), capabilities);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
-        driver.quit();
+        if(driver != null) driver.quit();
         if(l != null) l.stop();
     }
 }

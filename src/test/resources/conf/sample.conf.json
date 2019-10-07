@@ -4,12 +4,14 @@
   "key": "BROWSERSTACK_ACCESS_KEY",
 
   "capabilities": {
-    "build": "junit-browserstack",
-    "name": "single_test",
+    "build": "junit5-browserstack",
+    "name": "sampleConf",
     "browserstack.debug": true
   },
 
   "environments": [{
-    "browser": "chrome"
+    "browser": "chrome",
+    "os": "Windows",
+    "os_version": "10"
   }]
 }

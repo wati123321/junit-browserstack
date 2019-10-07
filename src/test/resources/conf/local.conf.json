@@ -4,8 +4,8 @@
   "key": "BROWSERSTACK_ACCESS_KEY",
 
   "capabilities": {
-    "build": "junit-browserstack",
-    "name": "local_test",
+    "build": "junit5-browserstack",
+    "name": "localConf",
     "browserstack.debug": true,
     "browserstack.local": true
   },
