@@ -15,7 +15,7 @@ public class SingleTest extends BrowserStackJUnitTest {
     element.sendKeys("BrowserStack");
     
     //Should throw an error
-    element1.sendkeys("BrowserStack");
+   // element1.sendkeys("BrowserStack");
     
     
     element.submit();
