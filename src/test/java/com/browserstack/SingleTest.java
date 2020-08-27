@@ -13,6 +13,11 @@ public class SingleTest extends BrowserStackJUnitTest {
     driver.get("https://www.google.com/ncr");
     WebElement element = driver.findElement(By.name("q"));
     element.sendKeys("BrowserStack");
+    
+    //Should throw an error
+    element1.sendkeys("BrowserStack");
+    
+    
     element.submit();
     Thread.sleep(5000);
 
